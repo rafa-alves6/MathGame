@@ -1,9 +1,15 @@
-﻿Random random = new();
+﻿using System.Diagnostics;
+
+Random random = new();
 List<String> history = [];
+Stopwatch gameTimer = new();
+
 StartGame();
 
 void StartGame()
 {
+        gameTimer.Start();
+
         Console.Clear();
         Console.WriteLine("\t#####\t Welcome to the Math Game!\t#####");
 
@@ -24,6 +30,9 @@ void StartGame()
                                 case 0:
                                         Console.WriteLine("Leaving...");
                                         shouldLeave = true;
+                                        gameTimer.Stop();
+                                        TimeSpan timePlayed = gameTimer.Elapsed;
+                                        Console.WriteLine($"You played for {timePlayed.Minutes} minutes and {timePlayed.Seconds} seconds");
                                         break;
                                 case 1:
                                         AskQuestion("add");
@@ -40,11 +49,13 @@ void StartGame()
                                 case 5:
                                         ShowHistory(history);
                                         break;
+                                case 6:
+                                        RandomChoice();
+                                        break;
                                 default:
                                         Console.WriteLine("Pick a number from 0-5");
                                         break;
                         }
-
                 }
                 else
                 {
@@ -52,7 +63,6 @@ void StartGame()
                 }
         } while (!shouldLeave);
 }
-
 
 void ShowOptions()
 {
@@ -62,6 +72,7 @@ void ShowOptions()
         Console.WriteLine("3. Multiplication");
         Console.WriteLine("4. Division");
         Console.WriteLine("5. Show game history");
+        Console.WriteLine("6. Random game");
         Console.WriteLine("0. Leave game");
         Console.WriteLine("");
 }
@@ -217,4 +228,11 @@ void AddToHistory(string playerQuestion, int result, bool playerWon, int playerA
                 defaultHistory += $". Result: Player got it wrong. Player answer was {playerAnswer}";
         }
         history.Add(defaultHistory);
+}
+
+void RandomChoice()
+{
+        string[] operations = ["add", "sub", "mult", "div"];
+        int index = random.Next(0, operations.Length);
+        AskQuestion(operations[index]);
 }
