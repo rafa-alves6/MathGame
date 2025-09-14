@@ -26,19 +26,19 @@ void StartGame()
                                         shouldLeave = true;
                                         break;
                                 case 1:
-                                        askQuestion("add");
+                                        AskQuestion("add");
                                         break;
                                 case 2:
-                                        askQuestion("sub");
+                                        AskQuestion("sub");
                                         break;
                                 case 3:
-                                        askQuestion("mult");
+                                        AskQuestion("mult");
                                         break;
                                 case 4:
-                                        askQuestion("div");
+                                        AskQuestion("div");
                                         break;
                                 case 5:
-                                        showHistory(history);
+                                        ShowHistory(history);
                                         break;
                                 default:
                                         Console.WriteLine("Pick a number from 0-5");
@@ -66,13 +66,13 @@ void ShowOptions()
         Console.WriteLine("");
 }
 
-int[] generateTwoRandomIntegers()
+int[] GenerateTwoRandomIntegers()
 {
         int x = random.Next(0, 101), y = random.Next(0, 101);
         return [x, y];
 }
 
-int[] generateValidDivision()
+int[] GenerateValidDivision()
 {
         int x, y;
         do
@@ -83,12 +83,12 @@ int[] generateValidDivision()
         return [x, y];
 }
 
-int[] calculateResult(string operation)
+int[] CalculateResult(string operation)
 {
         int[] question = new int[3]; // question[0] is the first operand, question[1] is the second operand and question [2] is the result 
         int result = 0;
 
-        int[] xAndY = generateTwoRandomIntegers();
+        int[] xAndY = GenerateTwoRandomIntegers();
         int x = xAndY[0];
         int y = xAndY[1];
 
@@ -113,7 +113,7 @@ int[] calculateResult(string operation)
                         question[2] = result;
                         break;
                 case "div":
-                        int[] valid = generateValidDivision();
+                        int[] valid = GenerateValidDivision();
                         int validX = valid[0],
                             validY = valid[1];
 
@@ -127,7 +127,7 @@ int[] calculateResult(string operation)
         return question;
 }
 
-int getAnswer()
+int GetAnswer()
 {
         while (true)
         {
@@ -142,17 +142,17 @@ int getAnswer()
         }
 }
 
-bool isCorrectAnswer(int answer, int result)
+bool IsCorrectAnswer(int answer, int result)
 {
         return answer == result;
 }
 
 
-void askQuestion(string operation)
+void AskQuestion(string operation)
 {
         string operationCharacter = "";
 
-        int[] question = calculateResult(operation);
+        int[] question = CalculateResult(operation);
         int x = question[0],
             y = question[1],
        result = question[2];
@@ -175,20 +175,20 @@ void askQuestion(string operation)
         string playerQuestion = $"{x} {operationCharacter} {y} =";
         Console.Write($"{playerQuestion} ");
 
-        int playerAnswer = getAnswer();
-        bool isCorrect = isCorrectAnswer(playerAnswer, result);
+        int playerAnswer = GetAnswer();
+        bool isCorrect = IsCorrectAnswer(playerAnswer, result);
         
         if (isCorrect)
         {
-                addToHistory(playerQuestion, result, isCorrect);
+                AddToHistory(playerQuestion, result, isCorrect);
         }
         else
         {
-                addToHistory(playerQuestion, result, isCorrect, playerAnswer);
+                AddToHistory(playerQuestion, result, isCorrect, playerAnswer);
         }
 }
 
-void showHistory(List<String> hist)
+void ShowHistory(List<String> hist)
 {
         if (hist.Count < 0)
         {
@@ -204,7 +204,7 @@ void showHistory(List<String> hist)
         }
 }
 
-void addToHistory(string playerQuestion, int result, bool playerWon, int playerAnswer = 0)
+void AddToHistory(string playerQuestion, int result, bool playerWon, int playerAnswer = 0)
 {
         string defaultHistory = $"{playerQuestion} {result}";
 
