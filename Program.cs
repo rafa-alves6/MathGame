@@ -201,7 +201,7 @@ void AskQuestion(string operation)
 
 void ShowHistory(List<String> hist)
 {
-        if (hist.Count < 0)
+        if (hist.Count == 0)
         {
                 Console.WriteLine("There are no recorded games.");
         }
