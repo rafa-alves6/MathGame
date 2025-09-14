@@ -154,32 +154,29 @@ void AskQuestion(string operation)
 {
     string operationCharacter = "";
 
-    for (int i = 0; i < numberOperations; i++) {
+    for (int i = 0; i < numberOperations; i++)
+    {
         int[] question = CalculateResult(operation);
         int x = question[0],
             y = question[1],
        result = question[2];
 
-        if (string.IsNullOrEmpty(operationCharacter)) // After the first iteration of the for loop,
-                                                      // we don't need to set the operation character again.
-                                                      // Could be changed if we want to generate different operations in the same random game.
+        switch (operation)
         {
-            switch (operation)
-            {
-                case "add":
-                    operationCharacter = "+";
-                    break;
-                case "sub":
-                    operationCharacter = "-";
-                    break;
-                case "mult":
-                    operationCharacter = "*";
-                    break;
-                case "div":
-                    operationCharacter = "/";
-                    break;
-            }
+            case "add":
+                operationCharacter = "+";
+                break;
+            case "sub":
+                operationCharacter = "-";
+                break;
+            case "mult":
+                operationCharacter = "*";
+                break;
+            case "div":
+                operationCharacter = "/";
+                break;
         }
+
         string playerQuestion = $"{x} {operationCharacter} {y} =";
         Console.Write($"{playerQuestion} ");
 
@@ -211,16 +208,16 @@ void ShowHistory(List<String> hist)
             {
                 Console.WriteLine("");
             }
-            
+
             Console.WriteLine($"{hist[i]}");
-            
+
         }
     }
 }
 
 void AddToHistory(string playerQuestion, int result, bool playerWon, int playerAnswer = 0)
 {
-    string defaultHistory = $"{history.Count+1}. {playerQuestion} {result}";
+    string defaultHistory = $"{history.Count + 1}. {playerQuestion} {result}";
 
     if (playerWon)
     {
